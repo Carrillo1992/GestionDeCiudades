@@ -15,33 +15,39 @@ public class Main {
 
         int opcion = 0;
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Bienvenidos al sistema de gestion de ciudades");
+        System.out.println("Bienvenido al sistema de gestión de ciudades");
 
         do {
             System.out.println("--------------------------------");
-            System.out.printf("| %-3s %-25s |%n", "", "Seleccione una opcion");
+            System.out.printf("| %-3s %-25s |%n", "", "Seleccione una opción");
             menu.forEach((k, s) -> {
                 System.out.printf("| %-3s %-25s |%n", k + ".", s);
             });
             System.out.println("--------------------------------");
-            opcion = entrada.nextInt();
-            switch (opcion){
-                case 1 -> {
-                    System.out.println("Introduzca la ciudad a agregar");
-                    gestion.agregarCiudad(entrada.next());
+                if (entrada.hasNextInt()) {
+                    opcion = entrada.nextInt();
+                    entrada.nextLine();
+                    switch (opcion) {
+                        case 1 -> {
+                            System.out.println("Introduzca el nombre de la ciudad a agregar");
+                            gestion.agregarCiudad(entrada.nextLine());
+                        }
+                        case 2 -> gestion.mostrarCiudades();
+                        case 3 -> {
+                            System.out.println("Introduzca el nombre de la ciudad a buscar");
+                            gestion.buscarCiudad(entrada.nextLine());
+                        }
+                        case 4 -> {
+                            System.out.println("Introduzca el nombre de la ciudad a eliminar");
+                            gestion.eliminarCiudad(entrada.nextLine());
+                        }
+                        case 5 -> System.out.print("¡Hasta luego!");
+                        default -> System.out.println("Entrada incorrecta");
+                    }
+                }else {
+                    System.out.println("Entrada no válida, por favor ingrese un número");
+                    entrada.nextLine();
                 }
-                case 2 -> gestion.mostrarCiudades();
-                case 3 -> {
-                    System.out.println("Introduzca la ciudad a buscar");
-                    gestion.buscarCiudad(entrada.next());
-                }
-                case 4 -> {
-                    System.out.println("Introduzca la ciudad a eliminar");
-                    gestion.eliminarCiudad(entrada.next());
-                }
-                case 5 -> System.out.print("¡Hasta luego!");
-                default -> System.out.println("Entrada incorrecta");
-            }
         }while(opcion != 5);
     }
 }
